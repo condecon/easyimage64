@@ -1,69 +1,92 @@
-# React + TypeScript + Vite
+# EasyImage64
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and efficient web application that converts images to base64 data URLs. Upload an image file or paste from clipboard to get the base64 encoded string instantly.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📁 **File Upload**: Select and convert image files from your device
+- 📋 **Clipboard Support**: Paste images directly from your clipboard
+- 🖼️ **Image Format Support**: Works with all common image formats (PNG, JPEG, GIF, etc.)
+- ⚡ **Real-time Conversion**: Instant base64 encoding with live preview
+- 🎨 **Clean Interface**: Simple and intuitive user interface
+- 📱 **Responsive Design**: Works on desktop and mobile devices
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js (version 18 or higher)
+- npm or yarn package manager
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/condecon/easyimage64.git
+   cd easyimage64
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+4. Open your browser and navigate to `http://localhost:5173`
+
+## 🛠️ Usage
+
+1. **Upload Method**: Click "Choose File" to select an image from your device
+2. **Clipboard Method**: Copy an image to your clipboard and click "Read file from clipboard"
+3. **Get Result**: The base64 encoded string will appear in the text area below
+
+The generated base64 string can be used in:
+- HTML `<img>` tags: `<img src="data:image/png;base64,YOUR_BASE64_STRING">`
+- CSS backgrounds: `background-image: url(data:image/png;base64,YOUR_BASE64_STRING)`
+- APIs and databases for image storage
+- Email templates and web applications
+
+## 🏗️ Built With
+
+- **React 19** - Frontend framework
+- **TypeScript** - Type safety and better development experience
+- **Vite** - Fast build tool and development server
+- **ESLint** - Code linting and formatting
+
+## 📦 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## 🌐 Browser Support
+
+This application uses modern web APIs:
+- **File API** for file reading
+- **Clipboard API** for clipboard access
+- Requires a modern browser with support for ES6+ features
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 🐛 Issues
+
+If you encounter any issues or have suggestions, please [open an issue](https://github.com/condecon/easyimage64/issues).
+
+---

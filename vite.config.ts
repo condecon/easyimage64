@@ -8,8 +8,8 @@ export default defineConfig({
     react(),
     VitePWA({
       manifest: {
-        name: "Image64",
-        short_name: "Image64",
+        name: "EasyImage64",
+        short_name: "EasyImage64",
         start_url: "/"
       },
       workbox: {
