@@ -43,24 +43,28 @@ function App() {
     const result = await navigator.clipboard.read();
     const item = result.at(0);
 
-    const type = item!.types.filter((value) => value.startsWith("image"))[0];
-    console.log(type);
-    const blob = await item?.getType(type);
+    if(item){
+      const types = item.types.filter((value) => value.startsWith("image"));
+      if(types.length != 0){
+        const blob = await item.getType(types[0]);
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      setContent(reader.result as string);
-    };
+        const reader = new FileReader();
+        reader.onload = () => {
+          setContent(reader.result as string);
+        };
 
-    reader.readAsDataURL(blob!);
+        reader.readAsDataURL(blob!);
+      }
+      
+    }
   }
 
   /**
    * Writes a string to the user's clipboard.
-   * @param content 
+   * @param content
    * @async
    */
-  async function writeResultToClipboard(content: string){
+  async function writeResultToClipboard(content: string) {
     navigator.clipboard.writeText(content);
   }
 
@@ -71,35 +75,38 @@ function App() {
       </AppBar>
 
       <div className="content">
-        <div className="content-row">
-          <Button variant="contained" tabIndex={-1} role={undefined} component="label">
-          Choose File
-          <VisuallyHiddenInput type="file"
-            onChange={(e) => {
-            const file = e.target.files![0];
-            readFile(file);
+        <div className="button-row">
+          <Button
+            variant="contained"
+            tabIndex={-1}
+            role={undefined}
+            component="label"
+            className="item"
+          >
+            Choose File
+            <VisuallyHiddenInput
+              type="file"
+              onChange={(e) => {
+                const file = e.target.files![0];
+                readFile(file);
+              }}
+              accept="image/*"
+            />
+          </Button>
+
+          <Button variant="contained" onClick={readFileFromClipboard} className="item">
+            Read file from clipboard
+          </Button>
+        </div>
+        <h2>Result</h2>{" "}
+        <Button
+          onClick={() => {
+            writeResultToClipboard(content);
           }}
-          accept="image/*"
-          />
+        >
+          Copy result to clipboard
         </Button>
-        </div>
-
-        <div className="content-row">
-          <Button variant="contained"
-            onClick={readFileFromClipboard}>
-              Read file from clipboard
-            </Button>
-        </div>
-
-        <h2>Result</h2> <Button onClick={() => {
-          writeResultToClipboard(content)
-        }}>Copy result to clipboard</Button>
-        <TextField
-          value={content}
-          multiline
-          rows={75}
-          fullWidth={true}
-        />
+        <TextField value={content} multiline rows={75} fullWidth={true} />
       </div>
     </>
   );

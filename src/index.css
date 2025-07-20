@@ -2,15 +2,22 @@
     font-family: Roboto;
 }
 
-div .content-row{
-    margin-top: 10pt;
-    margin-bottom: 10pt;
-}
-
 h1{
     margin-left: 8pt;
 }
 
 .content{
     margin-top: 10pt;
+}
+
+/** button row*/
+.button-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.item {
+    flex: 1 1 0;
+    margin: 10px;
 }
