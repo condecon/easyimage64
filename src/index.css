@@ -1,0 +1,16 @@
+#root{
+    font-family: Roboto;
+}
+
+div .content-row{
+    margin-top: 10pt;
+    margin-bottom: 10pt;
+}
+
+h1{
+    margin-left: 8pt;
+}
+
+.content{
+    margin-top: 10pt;
+}

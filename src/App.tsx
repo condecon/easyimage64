@@ -1,13 +1,14 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import { AppBar, Button, TextField } from "@mui/material";
+import { VisuallyHiddenInput } from "./VisuallyHiddenInput";
 
 function App() {
-
   const [content, setContent] = useState<string>("");
-  
+
   /**
    * Reads an image file and sets its content as a base64-encoded data URL.
-   * 
+   *
    * @param file - The image file to be read.
    * @remarks
    * - Only files with a MIME type starting with "image" are supported.
@@ -15,8 +16,8 @@ function App() {
    * - The file is read asynchronously using a FileReader.
    * - On successful read, the result is set as a string via `setContent`.
    */
-  async function readFile(file: File){
-    if(!file.type.startsWith("image")){
+  async function readFile(file: File) {
+    if (!file.type.startsWith("image")) {
       alert("Only images are supported!");
       return;
     }
@@ -24,8 +25,8 @@ function App() {
     const reader = new FileReader();
     reader.onload = () => {
       setContent(reader.result as string);
-    }
-    
+    };
+
     reader.readAsDataURL(file);
   }
 
@@ -37,40 +38,71 @@ function App() {
    * The resulting data URL is set as the content via `setContent`.
    *
    * @async
-   * @returns {Promise<void>} Resolves when the image has been read and processed.
-   * @throws {Error} If clipboard access fails or no image is found in the clipboard.
    */
-  async function readFileFromClipboard(){
+  async function readFileFromClipboard() {
     const result = await navigator.clipboard.read();
     const item = result.at(0);
 
     const type = item!.types.filter((value) => value.startsWith("image"))[0];
-    console.log(type)
+    console.log(type);
     const blob = await item?.getType(type);
 
     const reader = new FileReader();
     reader.onload = () => {
       setContent(reader.result as string);
-    }
-    
+    };
+
     reader.readAsDataURL(blob!);
+  }
+
+  /**
+   * Writes a string to the user's clipboard.
+   * @param content 
+   * @async
+   */
+  async function writeResultToClipboard(content: string){
+    navigator.clipboard.writeText(content);
   }
 
   return (
     <>
-      <h1>Image64</h1>
+      <AppBar position="static">
+        <h1>EasyImage64</h1>
+      </AppBar>
 
-      <input type="file" onChange={(e) => {
-        const file = e.target.files![0];
-        readFile(file);
-      }}/>
+      <div className="content">
+        <div className="content-row">
+          <Button variant="contained" tabIndex={-1} role={undefined} component="label">
+          Choose File
+          <VisuallyHiddenInput type="file"
+            onChange={(e) => {
+            const file = e.target.files![0];
+            readFile(file);
+          }}
+          accept="image/*"
+          />
+        </Button>
+        </div>
 
-      <button type="button" onClick={readFileFromClipboard}>Read file from clipboard</button>
+        <div className="content-row">
+          <Button variant="contained"
+            onClick={readFileFromClipboard}>
+              Read file from clipboard
+            </Button>
+        </div>
 
-      <h3>Result</h3>
-      <textarea value={content} rows={75} cols={100}/>
+        <h2>Result</h2> <Button onClick={() => {
+          writeResultToClipboard(content)
+        }}>Copy result to clipboard</Button>
+        <TextField
+          value={content}
+          multiline
+          rows={75}
+          fullWidth={true}
+        />
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
